@@ -4,7 +4,7 @@
 
  DBMS初始化时(boot time)会申请一块区域称为buffer pool, 里面分为很多的frame(与disk的page对应, 一个frame大小相当于一个page). 当DBMS 请求一个page, 它首先就会被复制到frames上
 
-![](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220217171859232.png)
+![](db4.assets/image-20220217171859232.png)
 
 ---
 
@@ -12,7 +12,7 @@
 
 DBMS还会维护一个page table, 负责记录buffer pool相关的元信息, 包括每个page在内存中的位置、page的元信息:
 
-![image-20220217052233185](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20220217052233185.png)
+![image-20220217052233185](db4.assets/image-20220217052233185.png)
 
 * Frame Id: frame的唯一标识id, 每个id对应一个内存里的位置
 * Page Id: 当前frame里是哪个page
@@ -31,13 +31,13 @@ pin count可以防止替换掉正在被使用的page...
 
 buffer pool已满时会使用替换策略. 如果被替换的page的dirty bit被设置过, 还需要把数据回写到磁盘上来保证持久化. 
 
-![image-20211211192358477](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211211192358477.png)
+![image-20211211192358477](db4.assets/image-20211211192358477.png)
 
 请求Page的线程对Page的操作完成后需要通知buffer manager把`Pin count--`
 
 对单独page的并发访问和系统崩溃后的恢复由其它模块完成.
 
-![image-20220217183131862](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220217183131862.png)
+![image-20220217183131862](db4.assets/image-20220217183131862.png)
 
 ## 一些Buffer Pool优化策略
 
@@ -66,7 +66,7 @@ The DBMS does not always have a signle buffer pool for the entire system, 可能
 * Sequential Scans(顺序扫描数据库时): 加载物理上连续存储的下一个page
 * Index Scans(即按照B+树的顺序从根节点查找到叶子结点, 然后水平遍历有关的叶子节点时): 同一级的叶子节点不是连续的, 但是也会被缓存.
 
-![image-20211211195126074](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211211195126074.png)
+![image-20211211195126074](db4.assets/image-20211211195126074.png)
 
 ### Scan Sharing
 
@@ -74,7 +74,7 @@ The DBMS does not always have a signle buffer pool for the entire system, 可能
 
 假设一个查询A想扫描一个表然后另一个查询B已经在这么做了, 这时候可以把两个查询attach起来, 让他们两个一起继续扫描, 共同结束后再扫描A跳过/没扫描的地方
 
-![image-20220216071343242](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220216071343242.png)
+![image-20220216071343242](db4.assets/image-20220216071343242.png)
 
 Q1已经扫描到page 3时Q2来了, 这时候我们让Q2跟着Q1继续跑, 跑完了之后让Q2再去扫描之前没有扫描的表.
 
@@ -105,7 +105,7 @@ Goals:
 
 使用时可以在原数据表上增加last use的时间戳:
 
-![image-20220217060041368](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20220217060041368.png)
+![image-20220217060041368](db4.assets/image-20220217060041368.png)
 
 #### 改进: Clock / 时钟置换
 

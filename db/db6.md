@@ -29,7 +29,7 @@ DBMS需要保证索引与实际数据是逻辑同步的.
 
 注意树里存的是`key-value`, 这里的图里只标了`key`, `value`被省略了
 
-![disk-ds](https://gitee.com/oldataraxia/pic-bad/raw/master/img/disk-ds.png)
+![disk-ds](db6.assets/disk-ds.png)
 
 > 使用B+树而非红黑树的原因: 读写磁盘最好要满足"局部性原理", 当一个数据被用到时其附近的数据页通常会马上被使用. 因此应该把逻辑上相邻的数据在物理上也尽量存储在一起. 而B+树每个节点能容纳更多的数据, 从而降低树的高度.
 
@@ -55,7 +55,7 @@ B树的属性:
 * 内部节点与叶子节点的键值数量都在`[t-1, 2t-1]`之间. 
   * 不满足该条件时做重平衡操作. 小于`t-1`时借用或合并数据, 数据量大于`2t-1`时分裂节点. 
 
-![btree-example](https://gitee.com/oldataraxia/pic-bad/raw/master/img/btree-example.png)
+![btree-example](db6.assets/btree-example.png)
 
 ### B树操作
 
@@ -63,7 +63,7 @@ B树的属性:
 
 首先把数据插入到叶子节点, 如果节点变满(即节点数据量变为`2t`)则把它分裂为两个数据量为`t-1`的节点, 然后把中间的节点提升到父节点中. 如果父节点又满了则沿着树一直向上执行操作
 
-![btree-split](https://gitee.com/oldataraxia/pic-bad/raw/master/img/btree-split.png)
+![btree-split](db6.assets/btree-split.png)
 
 ```
 向B树中插入数据：
@@ -91,7 +91,7 @@ B树的属性:
 * 在每两个entry之间有指向子节点的指针, 每个节点最多有2d+1个指针, 称为B+树的fanout
 * "左小右大", entry左边的孩子中的最大值要比entry小, 右边孩子要比entry大.
 
-![img](https://gitee.com/oldataraxia/pic-bad/raw/master/img/v2-f49ff3a52456480e82f3094a92ed92c9_b.jpg)
+![img](db6.assets/v2-f49ff3a52456480e82f3094a92ed92c9_b.jpg)
 
 * 叶子节点之间是双向链表, 便于顺序遍历
 * 所有的叶子节点的高度相同
@@ -129,7 +129,7 @@ CS186表示直接删除就行了, 因为实际应用中插入远比删除要多(
 
 如果父节点没了需要再次合并
 
-![img](https://gitee.com/oldataraxia/pic-bad/raw/master/img/10803273-c64096dac0e96476.png)
+![img](db6.assets/10803273-c64096dac0e96476.png)
 
 很多数据库有延迟合并操作, 因为可能后面还会插入新数据.
 
@@ -160,7 +160,7 @@ CS186表示直接删除就行了, 因为实际应用中插入远比删除要多(
 
 (prev和next是上下节点的指针)
 
-![image-20211223053351902](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223053351902.png)
+![image-20211223053351902](db6.assets/image-20211223053351902.png)
 
 
 
@@ -206,7 +206,7 @@ MySQL是以具体node大小来确定合并的阈值, 需要比较精细的管理
 * padding: 所有的数据都是max length. 如果Key是变长的，我们也可以再向Key中补入空的字节，直到让Key的长度达到我们所设计的fixed-size
 * key map/indirection: 内嵌一个指针数组, 类似数据库文件组织中的`slot`, 存储指向对应KV的指针.
 
-![image-20211223060411599](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223060411599.png)
+![image-20211223060411599](db6.assets/image-20211223060411599.png)
 
 ## intra-node search
 
@@ -224,13 +224,13 @@ MySQL是以具体node大小来确定合并的阈值, 需要比较精细的管理
 
 在同一个叶子节点中的key可能有相同的前缀, 可以提取出来然后存的时候可以只存不一样的地方
 
-![img](https://gitee.com/oldataraxia/pic-bad/raw/master/img/v2-4106ead27caa3aca2e3a9f4fafbc2e29_720w.jpg)
+![img](db6.assets/v2-4106ead27caa3aca2e3a9f4fafbc2e29_720w.jpg)
 
 ## deduplication
 
 键冗余时值存一个键
 
-![image-20211223060917515](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223060917515.png)
+![image-20211223060917515](db6.assets/image-20211223060917515.png)
 
 ## Bulk Insert(批量插入)
 
@@ -240,7 +240,7 @@ MySQL是以具体node大小来确定合并的阈值, 需要比较精细的管理
 
 具体实现时可以先排序最底层, 然后一层一层地向上做索引
 
-![image-20211223061249716](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223061249716.png)
+![image-20211223061249716](db6.assets/image-20211223061249716.png)
 
 ## Pointer Swizzling
 

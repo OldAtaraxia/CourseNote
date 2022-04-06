@@ -1,5 +1,5 @@
 ## ICS
-* [计算机系统漫游](ics/ics.md)
+* [计算机系统漫游](ics/ics1.md)
 * [程序的机器级表示](ics/ics3.md)
 * [存储器体系结构](ics/ics6.md)
 * [异常控制流](ics/ics8.md)

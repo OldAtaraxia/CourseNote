@@ -1,6 +1,6 @@
 这节课开始讲的内容是Access Methods部分的内容, 主要是如何从Pages读取数据 ,对DBMS来说重要的数据结构就是哈希表和树
 
-![image-20211223034727385](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223034727385.png)
+![image-20211223034727385](db5.assets/image-20211223034727385.png)
 
 常见使用场景:
 
@@ -30,7 +30,7 @@ For any input key, return an integer representation of any key
 
 常见的hash functions:
 
-![image-20211223040046648](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223040046648.png)
+![image-20211223040046648](db5.assets/image-20211223040046648.png)
 
 ## static hashing scheme
 
@@ -44,13 +44,13 @@ For any input key, return an integer representation of any key
     * Separate Linked List
     * Redundant Keys
 
-![image-20211223040908507](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223040908507.png)
+![image-20211223040908507](db5.assets/image-20211223040908507.png)
 
 ### Robin Hood hashing
 
 基于开放地址哈希的改进版,基本思路是"劫富济贫", 如果发现单元格被其他键值对占用，那么就需要比较这俩个键距离其原本位置的距离。距离较远的键值对留下，距离较近的被迫后移。
 
-![image-20211223041113975](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223041113975.png)
+![image-20211223041113975](db5.assets/image-20211223041113975.png)
 
 ### Cuckoo hashing
 
@@ -76,7 +76,7 @@ For any input key, return an integer representation of any key
 
 要处理并发性: 在桶上设置一个latch
 
-![image-20211223042745447](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223042745447.png)
+![image-20211223042745447](db5.assets/image-20211223042745447.png)
 
 Java中的实现则是做了简化, 每个bucket相当于只存放一个元素. 问题在于元素很多事链表会很长, 所以进行的优化(压缩成红黑树)
 
@@ -86,13 +86,13 @@ Java中的实现则是做了简化, 每个bucket相当于只存放一个元素. 
 
 哈希函数得到二进制, 根据全局标志位决定看hash值的二进制前几位, 根据这个位数去决定扔到哪个桶里;
 
-![image-20211223043432212](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223043432212.png)
+![image-20211223043432212](db5.assets/image-20211223043432212.png)
 
 > PS: 这里的桶代表第一位是0, 前两位是10, 11...
 
 一旦桶满了就让全局标志位++, 然后各个桶再rehash(桶的数量要变多
 
-![image-20211223043641615](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223043641615.png)
+![image-20211223043641615](db5.assets/image-20211223043641615.png)
 
 
 
@@ -104,7 +104,7 @@ Java中的实现则是做了简化, 每个bucket相当于只存放一个元素. 
 
 初始指针指向0号桶
 
-![image-20211223043919514](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211223043919514.png)
+![image-20211223043919514](db5.assets/image-20211223043919514.png)
 
 现在17应该被插入第二个桶, 但是已经满了,又不想挂新的桶. 那么对指针指向的桶(0号)进行分裂, 对分割点指向的桶所包含的key采用新的hash函数进行分割(原来是a % n, 改成a % 2n). 17也放在新的桶里
 

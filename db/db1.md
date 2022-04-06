@@ -4,7 +4,7 @@ SQL是面向结果而不关心过程的, 关系代数则是用来表达数据库
 
 接受一个relation为输入, 并输出一个relation
 
-![image-20211129202231430](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211129202231430.png)
+![image-20211129202231430](db1.assets/image-20211129202231430.png)
 
 ## Projection / 投影 / π
 
@@ -14,9 +14,11 @@ SQL是面向结果而不关心过程的, 关系代数则是用来表达数据库
 
 $π_{name}(dogs)$, 表示只取`dogs`中的`name`一列, 类似于`SELECT name FROM dogs;`比如这是输入的`dogs`:
 
-![image-20220224144021511](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224144021511.png)
+![image-20220224144021511](db1.assets/image-20220224144021511.png)
 
-这个操作会返回: ![image-20220224144039600](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224144039600.png)
+这个操作会返回: 
+
+![image-20220224144039600](db1.assets/image-20220224144039600.png)
 
 而且还会合并相同的行(尽管他们被舍弃的列的值大概率是不同的). 
 
@@ -49,11 +51,11 @@ SELECT name, age FROM dogs WHERE age = 12;
 
 现在有`dogs`和`cats`两个集合
 
-![image-20220224151202045](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224151202045.png)
+![image-20220224151202045](db1.assets/image-20220224151202045.png)
 
 $π_{name}(dogs) ∪ π_{name}(cats)$的结果即是: (会去重)
 
-![image-20220224151237328](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224151237328.png)
+![image-20220224151237328](db1.assets/image-20220224151237328.png)
 
 ```sql
 SELECT name FROM dogs UNION SELECT name FROM cats
@@ -65,7 +67,7 @@ SELECT name FROM dogs UNION SELECT name FROM cats
 
 $π_{name}(dogs) − π_{name}(cats)$, 还是上节的表, `Garfield`是都出现的, 要舍弃, 得到结果:
 
-![image-20220224152515865](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224152515865.png)
+![image-20220224152515865](db1.assets/image-20220224152515865.png)
 
 ## Intersection / 交 / ∩
 
@@ -73,7 +75,7 @@ $π_{name}(dogs) − π_{name}(cats)$, 还是上节的表, `Garfield`是都出�
 
 $π_{name}(dogs) ∩ π_{name}(cats)$:
 
-![image-20220224152838083](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224152838083.png)
+![image-20220224152838083](db1.assets/image-20220224152838083.png)
 
 ## Corss Product / 笛卡尔积 / ×
 
@@ -85,11 +87,11 @@ SELECT * FROM dogs, parks;
 
 两个表: 
 
-![image-20220224153142320](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224153142320.png)
+![image-20220224153142320](db1.assets/image-20220224153142320.png)
 
 得到的结果有3 × 2 = 6行: 
 
-![image-20220224153325631](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224153325631.png)
+![image-20220224153325631](db1.assets/image-20220224153325631.png)
 
 ---
 
@@ -103,7 +105,7 @@ $cats⋈_{cats.name=dogs.name }dogs$
 
 Join可以被笛卡尔积+选择操作代替, 如以下两个是等价的: 
 
-![image-20220224154529829](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220224154529829.png)
+![image-20220224154529829](db1.assets/image-20220224154529829.png)
 
 ## Rename / 重命名 / ρ
 

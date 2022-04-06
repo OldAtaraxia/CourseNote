@@ -40,7 +40,7 @@
 
 关系代数是一种Relational Model的具体实现方式
 
-![image-20211129202231430](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211129202231430.png)
+![image-20211129202231430](db2.assets/image-20211129202231430.png)
 
 # SOL Part 1 - Basic Queries
 
@@ -96,21 +96,21 @@ HAVING COUNT(*) > 1;
 
 > 之前提到的SQL执行顺序依然是有效的
 
-![image-20220127144210627](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220127144210627.png)
+![image-20220127144210627](db2.assets/image-20220127144210627.png)
 
 首先执行到Group By之后得到的是这样的效果: (按年龄分组)
 
-![image-20220127144406500](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220127144406500.png)
+![image-20220127144406500](db2.assets/image-20220127144406500.png)
 
 HAVING表示只需要保留**满足count(\*) > 1的组**, 因此去掉最后一组:
 
-![image-20220127144529283](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220127144529283.png)
+![image-20220127144529283](db2.assets/image-20220127144529283.png)
 
 最后根据SELECT把所有的组变成一行, 这里也就是留下age和AVG(num_dogs).
 
 最后的结果:
 
-![image-20220127144625762](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220127144625762.png)
+![image-20220127144625762](db2.assets/image-20220127144625762.png)
 
 > group by可以指定两个列, 防止比如需要用到其它的列信息的情况
 
@@ -174,7 +174,7 @@ SELECT *
 FROM courses, enrollment;
 ```
 
-![image-20220127154532720](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220127154532720.png)
+![image-20220127154532720](db2.assets/image-20220127154532720.png)
 
 可以用where来指定join condition, 其实相当于先join然后用where过滤了
 
@@ -208,7 +208,7 @@ FROM courses LEFT OUTER JOIN enrollment
 ON num = c_num;
 ```
 
-![image-20220128101026551](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220128101026551.png)
+![image-20220128101026551](db2.assets/image-20220128101026551.png)
 
 * right outer join: 同理. 确保所有右边表的行都会出现在结果中
 
@@ -303,7 +303,7 @@ WHERE num = 'CS186'
 
 ## practice
 
-![image-20220128105857026](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220128105857026.png)
+![image-20220128105857026](db2.assets/image-20220128105857026.png)
 
 ```sql
 // 1. 列出Josh Hug拥有的所有狗的名字

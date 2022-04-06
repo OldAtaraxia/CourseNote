@@ -17,7 +17,7 @@
 
 ### 机器码/汇编码
 
-![image-20211122013059663](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013059663.png)
+![image-20211122013059663](ics3.assets/image-20211122013059663.png)
 
 PC: Program counter, x86下是%rip, 给出下一条指令内存中的地址.
 
@@ -35,7 +35,7 @@ Memory一般支持字节寻址的方式.绝大多数指令集架构的大小端�
 
 也就是 源代码 `->` 编译 `->` 汇编 `->` 链接 `->` 可执行文件 `->` 装载 
 
-![image-20211122013121105](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013121105.png)
+![image-20211122013121105](ics3.assets/image-20211122013121105.png)
 
 程序就是一系列（被编码了的）字节序列 （看上去和数据一模一样），这就是所谓的冯诺依曼结构计算机，即程序存储型计算机.
 
@@ -65,7 +65,7 @@ x86-64下整数有1byte(char),2byte(short), 4byte(int), 8byte(long), 汇编缩�
 
 ### 寄存器
 
-![image-20211122013138800](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013138800.png)
+![image-20211122013138800](ics3.assets/image-20211122013138800.png)
 
 寄存器是8bytes的, 为了兼容性可以访问低位的4bytes、2bytes、1bytes.
 
@@ -79,7 +79,7 @@ x86-64下整数有1byte(char),2byte(short), 4byte(int), 8byte(long), 汇编缩�
 
 操作数可以是立即数, 寄存器或内存
 
-![image-20211122013201499](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013201499.png)
+![image-20211122013201499](ics3.assets/image-20211122013201499.png)
 
 
 
@@ -121,11 +121,11 @@ leaq (%rdi, %rdi, 2), %rax
 
 双目运算符
 
-![image-20211122013241235](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013241235.png)
+![image-20211122013241235](ics3.assets/image-20211122013241235.png)
 
 单目运算符
 
-![image-20211122013259115](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013259115.png)
+![image-20211122013259115](ics3.assets/image-20211122013259115.png)
 
 # 3.2 控制
 
@@ -174,9 +174,9 @@ testq Src2(b), Src1(a)
 
 `SetX Instruction`: 根据条件码的组合把一个Byte设置成0或1(不会改变剩余的7个Byte)
 
-![image-20211122013323238](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013323238.png)
+![image-20211122013323238](ics3.assets/image-20211122013323238.png)
 
-![image-20211122013330922](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013330922.png)
+![image-20211122013330922](ics3.assets/image-20211122013330922.png)
 
 因为它不改变高7位Byte, 所以一般配合`movezbl`再移动到别的地方完成任务(32-bit instructions set upper 32 bits to 0)
 
@@ -194,7 +194,7 @@ ret
 
 Jump to different part of code depending on condition codes
 
-![image-20211122013342350](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013342350.png)
+![image-20211122013342350](ics3.assets/image-20211122013342350.png)
 
 跳转指令分为直接跳转(跳转到指令中指定的label)和间接跳转(跳转目标从寄存器或内存中读出来), 这种情况下操作数前面加一个`*`
 
@@ -256,7 +256,7 @@ Done:
 }
 ```
 
-![image-20211122013425415](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013425415.png)
+![image-20211122013425415](ics3.assets/image-20211122013425415.png)
 
 ### General Conditional Expression Translation(Using Branches)
 
@@ -294,7 +294,7 @@ absdiff:
 
 `cmov`从寄存器的名字判断出条件传送指令的操作数长度, 所以不区分数据长度后缀
 
-![image-20211122013449157](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013449157.png)
+![image-20211122013449157](ics3.assets/image-20211122013449157.png)
 
 
 
@@ -392,7 +392,7 @@ while(Test){
 
 当分支很多且条件值相差不大时可以用跳转表实现, 通过条件值为`index`访问跳转表, 读出对应条件下需执行的代码的位置
 
-![image-20211122013534087](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013534087.png)
+![image-20211122013534087](ics3.assets/image-20211122013534087.png)
 
 
 
@@ -462,7 +462,7 @@ Popq Dest: 把rsp指的地方的值写到Dest, rsp += 8
 
 函数前六个参数放在寄存器里,剩下的放在栈里
 
-![image-20211122013633314](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013633314.png)
+![image-20211122013633314](ics3.assets/image-20211122013633314.png)
 
 ## 3.3.4 Managing local Data (栈上的局部存储)
 
@@ -474,7 +474,7 @@ Popq Dest: 把rsp指的地方的值写到Dest, rsp += 8
 
 把每个函数在栈上管理的空间叫做"栈帧", 大致分几部分: 保存局部寄存器和变量的部分, (如果它也要调用别的函数而且参数挺多的)参数部分. 然后注意到调用这个函数的函数(caller)里面有参数部分和返回地址
 
-![image-20211122013647452](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013647452.png)
+![image-20211122013647452](ics3.assets/image-20211122013647452.png)
 
 关于%rbp, 因为书上提到rbp是callee-saved register之一, 这个东西一开始是%rsp的快照, 用它配合偏移量访问栈上的东西, 后来编译器优化用rsp+偏移量访问东西, 所以就可以把rbp解放出来干别的了.(所以这里是optional(可选的)
 
@@ -497,7 +497,7 @@ Popq Dest: 把rsp指的地方的值写到Dest, rsp += 8
 
 根据条件判断是否跳到边界条件, 不然就直接调用自身就是了.
 
-![image-20211122013701828](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013701828.png)
+![image-20211122013701828](ics3.assets/image-20211122013701828.png)
 
 # 3.4 Data
 
@@ -515,7 +515,7 @@ T A[L]
 
 在内存中线性连续排布
 
-![image-20211122013715909](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013715909.png)
+![image-20211122013715909](ics3.assets/image-20211122013715909.png)
 
 `A`可以被用作指向数组首元素的指针, 访问时利用`A+index*sizeof(T)`
 
@@ -525,17 +525,17 @@ T A[L]
 T A[R][C]`, 在内存中是row-major Ordering的. 访问`A[i][j]`时利用`A + i * (sizeof(T) * C) + j * sizeof(T)
 ```
 
-![image-20211122013729443](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013729443.png)
+![image-20211122013729443](ics3.assets/image-20211122013729443.png)
 
 ### 嵌套数组
 
 形如
 
-![image-20211122013803229](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013803229.png)
+![image-20211122013803229](ics3.assets/image-20211122013803229.png)
 
 就会变成真正的`int*`数组, 一维数组里放的是`int*`
 
-![image-20211122013817743](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013817743.png)
+![image-20211122013817743](ics3.assets/image-20211122013817743.png)
 
 访问者中数组需要做两次访存 -- 第一次找到`univ`中的对应指针, 第二次用这个指针去找对应的元素
 
@@ -561,7 +561,7 @@ struct在内存中是一块连续的空间, 对于其子字段按照声明的顺
 
 所以要把大的元素对象放在前面以节省空间
 
-![image-20211122013845183](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122013845183.png)
+![image-20211122013845183](ics3.assets/image-20211122013845183.png)
 
 
 
@@ -591,13 +591,13 @@ struct在内存中是一块连续的空间, 对于其子字段按照声明的顺
 
 ## 3.5.1 典型的内存布局
 
-![image-20211122014030769](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014030769.png)
+![image-20211122014030769](ics3.assets/image-20211122014030769.png)
 
 典型的linux下的内存层次, 共享库、堆与栈、数据与代码区.值得一提的是内存会有两个指示位, 指示这一部分是否可读、是否可写.
 
 另外堆貌似不是单向增长的, 而是双向, 然后比较大的内存放下面向上增长
 
-![image-20211122014052818](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014052818.png)
+![image-20211122014052818](ics3.assets/image-20211122014052818.png)
 
 经过查阅 [[译\] malloc中的系统调用brk和mmap | yoko blog (pengrl.com)](https://www.pengrl.com/p/20032/)
 
@@ -626,17 +626,17 @@ int main(){
 }
 ```
 
-![image-20211122014116154](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014116154.png)
+![image-20211122014116154](ics3.assets/image-20211122014116154.png)
 
 输入的string过长会导致段错误
 
 同时还顺手编译器分配的局部变量的大小会比需要的多一点
 
-![image-20211122014126889](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014126889.png)
+![image-20211122014126889](ics3.assets/image-20211122014126889.png)
 
 回到过程那一节的这幅图上: 
 
-![image-20211122014138468](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014138468.png)
+![image-20211122014138468](ics3.assets/image-20211122014138468.png)
 
 如果把return Addr覆盖了, 函数就无法返回到正确的地方了.
 
@@ -663,9 +663,11 @@ int main(){
 
 - 编译器层面: 栈"金丝雀", `gcc -fsrack-protector`
 
-![image-20211122014203186](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014203186.png)在申请栈上缓存时在里面放个随机值, 执行函数后检查这个值有没有变(你如果想修改返回地址的话那一定会覆盖金丝雀值) 这是产生的汇编代码
+![image-20211122014203186](ics3.assets/image-20211122014203186.png)
 
-![image-20211122014226641](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122014226641.png)
+在申请栈上缓存时在里面放个随机值, 执行函数后检查这个值有没有变(你如果想修改返回地址的话那一定会覆盖金丝雀值) 这是产生的汇编代码
+
+![image-20211122014226641](ics3.assets/image-20211122014226641.png)
 
 ### Return-Oriented Programming
 

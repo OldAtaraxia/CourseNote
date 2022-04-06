@@ -17,7 +17,7 @@ I/O就是在主存和I/O设备(磁盘驱动器, 终端,网络)之间复制数据
 	- `read`, `write`
 	- `lseek`: 设置current file position, which indicates next offset into file to read or write
 
-![image-20211122023413512](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023413512.png)
+![image-20211122023413512](ics10.assets/image-20211122023413512.png)
 
 - 文件类型: 
 	- regular files(怎么翻译啊...), 具体分为文本文件和二进制文件, 文本文件就是由ASCII或Unicode字符组成的文件
@@ -28,7 +28,7 @@ I/O就是在主存和I/O设备(磁盘驱动器, 终端,网络)之间复制数据
 		- 每个目录都之至少有两条, `..`(指向指向其父目录)和`.` (指向它自身)
 		- 每个进程都有一个当前工作目录(current working directory, cwd)
 
-![image-20211122023426528](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023426528.png)
+![image-20211122023426528](ics10.assets/image-20211122023426528.png)
 
 ### 开关文件
 
@@ -124,7 +124,7 @@ int stat(const char* filename, struct stat* buf);
 int fstat(int fd, struct stat* buf);
 ```
 
-![image-20211122023454934](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023454934.png)
+![image-20211122023454934](ics10.assets/image-20211122023454934.png)
 
 ### How the unix kernel represents open files
 
@@ -134,7 +134,7 @@ int fstat(int fd, struct stat* buf);
 - 文件表: 相当于打开文件的集合, 由所有进程共享, 每一项由当前文件位置, 引用计数(指向当前标枪的描述符表项数), 指向v-node表的指针. 关闭描述符会减少响应的文件表表项的引用计数. 引用计数到0就会关闭它
 - v-node表: 每个表项包括文件的元数据, 由所有进程共享
 
-![image-20211122023503959](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023503959.png)
+![image-20211122023503959](ics10.assets/image-20211122023503959.png)
 
 ### 文件共享
 
@@ -142,17 +142,17 @@ int fstat(int fd, struct stat* buf);
 
 要点在于每个表舒服有会保存自己的文件位置, 可以分别从文件的不同位置获取数据.
 
-![image-20211122023513651](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023513651.png)
+![image-20211122023513651](ics10.assets/image-20211122023513651.png)
 
 如果是多个进程, 子进程会继承父进程的打开的文件
 
 Before fork:
 
-![image-20211122023521713](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023521713.png)
+![image-20211122023521713](ics10.assets/image-20211122023521713.png)
 
 After fork
 
-![image-20211122023528901](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023528901.png)
+![image-20211122023528901](ics10.assets/image-20211122023528901.png)
 
 ### IO重定向
 
@@ -172,7 +172,7 @@ int dup2(int oldfd, int newfd);
 
 具体做的事是把oldfd的描述符表复制给newfd
 
-![image-20211122023540590](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023540590.png)
+![image-20211122023540590](ics10.assets/image-20211122023540590.png)
 
 ### IO重定向例子
 
@@ -210,7 +210,7 @@ C语言定义的标准io库, 相当于Unix I/O的较高级别的替代, 包括�
 
 所以采用`buffer read`: 每次用Unix read读一块字节, 然后用一个输入函数每次从buffer里读一个byte进来. 当buffer空了之后再重新去读buffer
 
-![image-20211122023554316](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023554316.png)
+![image-20211122023554316](ics10.assets/image-20211122023554316.png)
 
 ![image-20211122023603440](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023603440.png)
 
@@ -237,7 +237,7 @@ int main(int argc, char* argv[]) {
 
 cmu 15-213写的一个特定的包
 
-![image-20211122023614231](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023614231.png)
+![image-20211122023614231](ics10.assets/image-20211122023614231.png)
 
 读入的数据不足("Best practice is to always allow for short counts")的情况:
 
@@ -341,4 +341,4 @@ typedef struct {
 
 对于二进制文件不要使用`Text-oriented I/O`, 比如`fgets`, `scanf`, 他们会被EOF打断
 
-![image-20211122023656084](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122023656084.png)
+![image-20211122023656084](ics10.assets/image-20211122023656084.png)

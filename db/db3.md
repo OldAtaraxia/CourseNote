@@ -1,6 +1,6 @@
 > 数据存储层, 相当于存储引擎吧, "面向磁盘"的DBMS体系结构
 
-![image-20211209130321693](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211209130321693.png)
+![image-20211209130321693](db3.assets/image-20211209130321693.png)
 
 这里讲的是构建面向磁盘存储的数据库系统, 即数据是存在磁盘上的, 而不是`redis`那样数据放在内存里. 这时候需要一个disk manager, 负责把数据在非易失与易失的存储器之间移动
 
@@ -15,7 +15,7 @@
 
 数据库的目标: 最小化从磁盘读取数据的影响, 给应用程序提供一种错觉, 即我们能提供足够的内存将整个数据库存入内存中
 
-![1](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211209130649293.png)
+![1](db3.assets/image-20211209130649293.png)
 
 # 不使用 OS 自带的mmap
 
@@ -27,7 +27,7 @@
 
 因为这个过程类似os的虚拟内存mmap过程
 
-![image-20211209133153045](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211209133153045.png)
+![image-20211209133153045](db3.assets/image-20211209133153045.png)
 
 还有一些事情OS是没法做到的:
 
@@ -59,7 +59,7 @@ CS186里提到了Disk Managemetn层, 在文件/page层面做一些调度
 
 DBMS把文件切分成pages进行管理, page是固定大小的一块数据, 有唯一的id, DBMS用一个indirection layer把page id与数据实际储存的物理位置关联起来
 
-![image-20220131095939812](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131095939812.png)
+![image-20220131095939812](db3.assets/image-20220131095939812.png)
 
 ### DBMS管理 pages的方式
 
@@ -75,11 +75,11 @@ heap file指一个无序的pages集合, 为了便于查找需要记录哪些page
 
 * linked list(链表): pages管理模块维护一个header page, header page维护两个链表, 分别表示已经用过的和没有用过的page
 
-![image-20220131102042728](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131102042728.png)
+![image-20220131102042728](db3.assets/image-20220131102042728.png)
 
 * page dircetory: 一些特殊的pages, 负责记录data pages的使用情况, DBMS需要保证directory pages和data pages同步
 
-![image-20220131102300787](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131102300787.png)
+![image-20220131102300787](db3.assets/image-20220131102300787.png)
 
 > TODO: 和CS186合并
 
@@ -104,7 +104,7 @@ header中通常包括:
 
 具体实现有一个"Straawman(稻草人) idea", 即在header中记录tuple的格式, 然后不断的往下append
 
-![img](https://zhenghe.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-LMjQD5UezC9P8miypMG%2F-LYebNTlaoNsGvaj71_I%2F-LYebUJNjx5lPE-GdhLA%2FScreen%20Shot%202019-02-14%20at%201.42.13%20PM.jpg?alt=media&token=2110560c-88a8-4ca7-826b-d913128e246b)
+![img](db3.assets/assets%2F-LMjQD5UezC9P8miypMG%2F-LYebNTlaoNsGvaj71_I%2F-LYebUJNjx5lPE-GdhLA%2FScreen Shot 2019-02-14 at 1.42.13 PM.jpg)
 
 缺点: 出现删除操作的话不好处理, 可能要从开头遍历寻找空位, 否则会出现空间浪费. 而且tuple难以处理变长数据记录(变长数据插入之前的空格不一定够)
 
@@ -115,7 +115,7 @@ header中通常包括:
 
 这样定位一条record只需要page_id + offset/slot作为所谓的record_id
 
-![image-20220131114021433](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131114021433.png)
+![image-20220131114021433](db3.assets/image-20220131114021433.png)
 
 当今大部分数DBMS都是用的这种结构的pages
 
@@ -125,7 +125,7 @@ header中通常包括:
 
 按顺序存储日志信息: 每次有新操作就记录一下日志(具体的操作)
 
-![img](https://zhenghe.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-LMjQD5UezC9P8miypMG%2F-LYebNTlaoNsGvaj71_I%2F-LYebc_D1CpzNH1QhiNS%2FScreen%20Shot%202019-02-14%20at%201.55.58%20PM.jpg?alt=media&token=f241bc9c-5b9a-4398-af62-328424b8b32e)
+![img](db3.assets/assets%2F-LMjQD5UezC9P8miypMG%2F-LYebNTlaoNsGvaj71_I%2F-LYebc_D1CpzNH1QhiNS%2FScreen Shot 2019-02-14 at 1.55.58 PM.jpg)
 
 
 
@@ -135,7 +135,7 @@ To read a record, the DBMS scans the log backwords and "recreates" the tuple to 
 
 回放是一般是从新往旧倒放的, 一直找到数据"诞生"的位置就停下, 然后开始重建
 
-![image-20211210131519258](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210131519258.png)
+![image-20211210131519258](db3.assets/image-20211210131519258.png)
 
 为了加快查询效率一般对日志在记录id上建立索引(比如记录所有与id=3有关的记录),以及会定期压缩日志(by removing unnecessary recoreds)
 
@@ -143,17 +143,17 @@ To read a record, the DBMS scans the log backwords and "recreates" the tuple to 
 
 比如现在有一些日志.
 
-![image-20220131122039889](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131122039889.png)
+![image-20220131122039889](db3.assets/image-20220131122039889.png)
 
 压缩之后的表:
 
-![image-20220131122119572](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131122119572.png)
+![image-20220131122119572](db3.assets/image-20220131122119572.png)
 
 > 这种日志形式一般用在kv上, 如HBase, levelDB, RocksDB都用了类似的机制
 >
 > RocksDB有分层机制/level Compaction, 把Log文件分开, 压缩时一层一层地合并再压缩
 >
-> ![image-20220131122604589](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131122604589.png)
+> ![image-20220131122604589](db3.assets/image-20220131122604589.png)
 
 ## Tuple Layout / 一个元组的布局
 
@@ -163,7 +163,7 @@ To read a record, the DBMS scans the log backwords and "recreates" the tuple to 
 
 data中放具体的列值信息, 一般会按照建表时指定的顺序(不绝对)来存储.
 
-![image-20220131120701163](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131120701163.png)
+![image-20220131120701163](db3.assets/image-20220131120701163.png)
 
 
 
@@ -214,7 +214,7 @@ struct decimal_t {
 
 tuple的大小显然不能超过一个page的大小, 为了存下比page大小大的值, 会新开一个页, 就是把大的值扔到里面. MySQL应该是大于等于 1/2 size of page(8k)就会溢出
 
-![image-20211210134456646](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210134456646.png)
+![image-20211210134456646](db3.assets/image-20211210134456646.png)
 
 溢出页再不够就在后面再附着一个页. 链表.
 
@@ -234,7 +234,7 @@ DBMS在它的internal catalogs里存meta-data about databases:
 
 比如MySQL:
 
-![image-20211210143258170](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210143258170.png)
+![image-20211210143258170](db3.assets/image-20211210143258170.png)
 
 查看一张表的schema:
 
@@ -250,7 +250,7 @@ DBMS在它的internal catalogs里存meta-data about databases:
 * On-Line Analytical Processing(OLAP): Complex queries that **read a lot of data to compute aggregates**. 一个很复杂的SQL语句. 更倾向于读
 * Hybrid Transaction + Analytical Processing(HTAP): OLTP + OLAP together on the same database instance. 兼顾两者
 
-![image-20211210145915834](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210145915834.png)
+![image-20211210145915834](db3.assets/image-20211210145915834.png)
 
 * OLTP example: 简单的读写语句，且每个语句都只操作数据库中的一小部分数据
 
@@ -283,7 +283,7 @@ SELECT COUNT(U.lastLogin)
 
 基于此对数据库进行规划:  平时业务里用一个小的数据库进行OLTP. 每隔一段时间进行ETL操作(提取、变换、加载), 扔到一个专门作分析的数据仓库里, 然后在里面跑分析的SQL.
 
-![image-20220131125350921](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20220131125350921.png)
+![image-20220131125350921](db3.assets/image-20220131125350921.png)
 
 # Data Storage Models
 
@@ -298,11 +298,11 @@ The DBMS can store tuples in different ways that are better for either OLTP or O
 
 把一个tuple的所有attributes在page中连续存储, 这种存储方式非常适合OLTP场景
 
-![image-20211210151211284](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210151211284.png)
+![image-20211210151211284](db3.assets/image-20211210151211284.png)
 
 这样还可以针对一些常用的attributes建立index, 查询语句通过Index找到相应的tuples, 返回查询结果(我们都知道index也是一颗B+树2333)
 
-![image-20211210151427673](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210151427673.png)
+![image-20211210151427673](db3.assets/image-20211210151427673.png)
 
 > 优点:
 >
@@ -317,20 +317,20 @@ The DBMS can store tuples in different ways that are better for either OLTP or O
 
 把单个attribute连续的存储在一个page中, 这样比如你开一个Page可能会返现满page的userID2333.
 
-![image-20211210151914313](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210151914313.png)
+![image-20211210151914313](db3.assets/image-20211210151914313.png)
 
-![image-20211210151930189](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210151930189.png)
+![image-20211210151930189](db3.assets/image-20211210151930189-1649234090461166.png)
 
 这样可以通过只读一列的数据来优雅处理OLAP浪费查询I/O的问题:
 
-![image-20211210152041117](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210152041117.png)
+![image-20211210152041117](db3.assets/image-20211210152041117.png)
 
 > 追踪每个tuple的不同attributes的方案:
 >
 > * Fixed-length Offsets: 每个attribute是定长的, 这样完全可以通过偏移量来跟踪特定的数据
 > * Embedded Tuple ids: 在每个attribute前面加上tupleID
 >
-> ![image-20211210152424091](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211210152424091.png)
+> ![image-20211210152424091](db3.assets/image-20211210152424091.png)
 
 优点:
 

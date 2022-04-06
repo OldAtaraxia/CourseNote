@@ -10,7 +10,7 @@
 
 异常就是控制流中的突变, 是一种底层的异常控制流机制.
 
-![image-20211122021941845](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122021941845.png)
+![image-20211122021941845](ics8.assets/image-20211122021941845.png)
 
 
 
@@ -24,7 +24,7 @@
 
 os初始化一张称为"异常表"的跳转表, 异常表的起始地址放在一个叫做**异常表基址寄存器**（exception table base register）的特殊 CPU 寄存器里。
 
-![image-20211122021952842](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122021952842.png)
+![image-20211122021952842](ics8.assets/image-20211122021952842.png)
 
 
 
@@ -34,7 +34,7 @@ os初始化一张称为"异常表"的跳转表, 异常表的起始地址放在�
 
 ### 8.1.2 异常的类别
 
-![image-20211122022003710](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022003710.png)
+![image-20211122022003710](ics8.assets/image-20211122022003710.png)
 
 - 中断是外部io设备发出的, 所以是异步的(处理器干别的的时候io设备发出中断, 而不是由指令产生), 其它异常都是指令执行的结果, 所以是同步的. 例子: 
 
@@ -51,21 +51,21 @@ os初始化一张称为"异常表"的跳转表, 异常表的起始地址放在�
 
 - 终止是不可恢复的知名错误, 通常是硬件错误, 直接返回到`abort`, 比如非法指令, "奇偶校验错误", 
 
-![image-20211122022021494](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022021494.png)
+![image-20211122022021494](ics8.assets/image-20211122022021494.png)
 
-![image-20211122022030114](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022030114.png)
+![image-20211122022030114](ics8.assets/image-20211122022030114.png)
 
-![image-20211122022038838](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022038838.png)
+![image-20211122022038838](ics8.assets/image-20211122022038838.png)
 
 ### 8.1.3 系统调用
 
 Each x86-64 system call has a unique ID number
 
-![image-20211122022048527](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022048527.png)
+![image-20211122022048527](ics8.assets/image-20211122022048527.png)
 
-![image-20211122022100968](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022100968.png)
+![image-20211122022100968](ics8.assets/image-20211122022100968.png)
 
-![image-20211122022110760](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022110760.png)
+![image-20211122022110760](ics8.assets/image-20211122022110760.png)
 
 系统调用与调用函数是类似的, 但系统调用由Kernel来执行, 优先级不同.
 
@@ -73,11 +73,11 @@ Each x86-64 system call has a unique ID number
 
 缺页:
 
-![image-20211122022121118](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022121118.png)
+![image-20211122022121118](ics8.assets/image-20211122022121118.png)
 
 段错误:
 
-![](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022121118.png)多个流一起执行就叫并发.一个进程执行它的控制流的一部分的每一时间段叫做**时间片**
+![](ics8.assets/image-20211122022121118-164923324826848.png)多个流一起执行就叫并发.一个进程执行它的控制流的一部分的每一时间段叫做**时间片**
 
 并发流可以在同一个处理器上运行, **并行流** 特指多个流分别在不同的处理器核上执行.
 
@@ -104,7 +104,7 @@ Each x86-64 system call has a unique ID number
 
 进程给程序提供假象, 它独占使用系统地址空间.
 
-![image-20211122022200112](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022200112.png)
+![image-20211122022200112](ics8.assets/image-20211122022200112.png)
 
 ### 8.2.4 用户模式和内核模式
 
@@ -120,25 +120,25 @@ Liunx是可以给你读内核态的数据内容的, 在`/proc`下, 比如cpu类�
 
 - 把当前的寄存器的值保存在内存中
 
-![image-20211122022214868](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022214868.png)
+![image-20211122022214868](ics8.assets/image-20211122022214868.png)
 
 
 
 - 安排下一个进程的执行
 
-![image-20211122022222810](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022222810.png)
+![image-20211122022222810](ics8.assets/image-20211122022222810.png)
 
 
 
 - 从内存中加载寄存器的值, 进行上下文切换
 
-![image-20211122022230481](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022230481.png)
+![image-20211122022230481](ics8.assets/image-20211122022230481.png)
 
 
 
 kernel来管理各个进程, the kernel is not a separate process, but rather runs as part of some existing process
 
-![image-20211122022240742](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022240742.png)
+![image-20211122022240742](ics8.assets/image-20211122022240742.png)
 
 ## 8.3 系统调用错误处理
 
@@ -247,9 +247,9 @@ int main(){
 }
 ```
 
-![image-20211122022344392](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022344392.png)
+![image-20211122022344392](ics8.assets/image-20211122022344392.png)
 
-![image-20211122022359946](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022359946.png)
+![image-20211122022359946](ics8.assets/image-20211122022359946.png)
 
 ### 8.4.3 回收子进程
 
@@ -274,7 +274,7 @@ pid_t waitpid(pid_t pid, int *statusp, int options);
 - **WUNTRACED：**挂起调用进程的执行，直到等待集合中的一个进程变成已终止或者被停止，返回的 PID 为导致返回的已终止或被停止子进程的 PID。默认的行为是只返回已终止的子进程。当你想要检査已终止和被停止的子进程时，这个选项会有用。
 - **WCONTINUED：**挂起调用进程的执行，直到等待集合中一个正在运行的进程终止或等待集合中一个被停止的进程收到 SIGCONT 信号重新开始执行。（8.5 节会解释这些信号。）
 
-![image-20211122022418056](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022418056.png)
+![image-20211122022418056](ics8.assets/image-20211122022418056.png)
 
 `statusp`: waitpid会在status(statusp指向的值)中放导致返回的子进程的状态信息, wait.h定义了解释status的宏.
 
@@ -282,7 +282,7 @@ pid_t waitpid(pid_t pid, int *statusp, int options);
 
 ( 用到了, 233333 )
 
-![image-20211122022430157](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022430157.png)
+![image-20211122022430157](ics8.assets/image-20211122022430157.png)
 
 
 
@@ -324,7 +324,7 @@ int execve(const char *filename, const char *argv[],
 
 argv应该指向一个null结尾的指针数组, 每个指针指向一个参数字符串, argv[0]应该是可执行目标文件的名字.
 
-![image-20211122022450838](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022450838.png)
+![image-20211122022450838](ics8.assets/image-20211122022450838.png)
 
 环境变量也是一个指向null结尾的指针数组, 每个指针指向一个环境变量字符串, 每个串形如`namae=value`. 新程序的主函数的形式:
 
@@ -334,7 +334,7 @@ int main(int argc, char **argv, char **envp);
 
 其栈帧
 
-![image-20211122022504535](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022504535.png)
+![image-20211122022504535](ics8.assets/image-20211122022504535.png)
 
 环境数组有专门的操作api, `getenv`在数组里找形如"name=value", 找到了就返回指向的指针, 否则返回NULL, 
 
@@ -353,7 +353,7 @@ char *getenv(const char *name);
 
 ### 8.5.1 shell程序
 
-![image-20211122022519020](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022519020.png)
+![image-20211122022519020](ics8.assets/image-20211122022519020.png)
 
 Linux有一些守护进程, [什么是守护进程？ - 知乎 (zhihu.com)](https://www.zhihu.com/question/38609004), 一般以`d`结尾, 比如httpd, 之后有shell, "a shell is an application program thar runs programs on behalf of the user"
 
@@ -459,7 +459,7 @@ int parseline(char* buf, char** argv){
 
 ### 8.5.3 存在的问题
 
-![image-20211122022533719](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022533719.png)
+![image-20211122022533719](ics8.assets/image-20211122022533719.png)
 
 简单来说就是后台进程没有释放.
 
@@ -483,7 +483,7 @@ A signal is a small message that notifies a process that an event of some type h
 - SIGALRM: 默认行为为终止,定时器信号
 - SIGCHLD: 默认行为为忽略, 表示子进程停止或终止了
 
-![image-20211122022547169](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022547169.png)
+![image-20211122022547169](ics8.assets/image-20211122022547169.png)
 
 **冷知识: ctrl+\是SIGQUIT, 在shell lab里用到了** 
 
@@ -498,9 +498,9 @@ A signal is a small message that notifies a process that an event of some type h
 	- 内核检测到系统事件, 如除以0或者子进程终止
 	- 其它进程调用了`kill`函数, 要求内核发信息给目的进程
 
-![image-20211122022559676](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022559676.png)
+![image-20211122022559676](ics8.assets/image-20211122022559676.png)
 
-![image-20211122022606905](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022606905.png)
+![image-20211122022606905](ics8.assets/image-20211122022606905.png)
 
 - 接受信号: A distination process receives a signal when iut is forced by the kernel to react in some way to the delivery of the signal.
 	- "react": 进程可以忽略信号, 可以终止进程(with optional core dump), 可以通过调用一个叫"信号处理程序"的用户级函数来捕获这个信号.
@@ -519,7 +519,7 @@ A signal is a small message that notifies a process that an event of some type h
 
 可以通过`getpgrp`得到当前进程的进程组ID, 可以通过`setpgid`来改变自己或其它进程的进程组.
 
-![image-20211122022620113](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022620113.png)
+![image-20211122022620113](ics8.assets/image-20211122022620113.png)
 
 
 
@@ -573,7 +573,7 @@ if(child == 0){
 return 0;
 ```
 
-![image-20211122022647018](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022647018.png)
+![image-20211122022647018](ics8.assets/image-20211122022647018.png)
 
 - /bin/kill
 
@@ -581,13 +581,13 @@ return 0;
 
 pid为负则发送给进程组pid的每个进程. 通过正负来区分pid是进程还是进程组
 
-![image-20211122022658141](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022658141.png)
+![image-20211122022658141](ics8.assets/image-20211122022658141.png)
 
 
 
 - 键盘
 
-![image-20211122022706010](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022706010.png)
+![image-20211122022706010](ics8.assets/image-20211122022706010.png)
 
 ctrl+c会发送SIGINT(终止)给shell的前台进程组, ctrl+z是SIGTSTP(终止直到SIGCONT, 相当于暂停)
 
@@ -605,7 +605,7 @@ int kill(pid_t pid, int sig);
 
 时机: kernel is returning from an exception handler and is ready to pass control to process p.
 
-![image-20211122022719138](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022719138.png)
+![image-20211122022719138](ics8.assets/image-20211122022719138.png)
 
 Kernel会计算 pnb = pending & (~blocked), 如果为0则把控制权返回给进程`p`的下一条指令, 否则就选择pnb中的非0位, 然后强迫进程p接收, 全接受后再把控制权交还给进程p的逻辑控制流.
 
@@ -633,15 +633,15 @@ Handler可能的取值:
 
 例子: bomb lab的ctrl+c的效果的实现
 
-![image-20211122022731091](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022731091.png)
+![image-20211122022731091](ics8.assets/image-20211122022731091.png)
 
 `sigint_handler`是与主程序并行的一个逻辑流, 但与主程序共享全局数据
 
-![image-20211122022740218](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022740218.png)
+![image-20211122022740218](ics8.assets/image-20211122022740218.png)
 
 handler会被其它handler打断
 
-![image-20211122022808000](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022808000.png)
+![image-20211122022808000](ics8.assets/image-20211122022808000.png)
 
 ### 8.5.5 blocking and unblocking signals
 
@@ -687,7 +687,7 @@ int main() {
 
 ### 8.5.6 编写安全的信号处理程序
 
-![image-20211122022828075](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022828075.png)
+![image-20211122022828075](ics8.assets/image-20211122022828075.png)
 
 G2: <errno.h> 头文件中有一个 errno 宏，它就用来存储错误代码，当系统调用或者函数调用发生错误时，就会将错误代码写入到 errno 中，再次读取 errno 就可以知道发生了什么错误。
 
@@ -699,7 +699,7 @@ volatile sig_atomic_t flag;
 
 可以通过`man 7 signal-safety`看117个异步安全的函数
 
-![image-20211122022840645](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211122022840645.png)
+![image-20211122022840645](ics8.assets/image-20211122022840645.png)
 
 常见的像`printf`, `sprintf`, `malloc`, `exit`都不是线程安全的.
 

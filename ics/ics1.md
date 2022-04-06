@@ -14,8 +14,6 @@
 
 就是编译的过程, `gcc` 有四个过程:
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=OGVhM2QwYTM4NDhhNmVhNjliZjViODMxNTgwZTNkMzVfcXI5Q0ZUUUZCSHN3WDIzNTdyOWw4ZHRpU0JZNDhzdFdfVG9rZW46Ym94Y250VDEwdEowR1ZkUVNtTXB0U0Yxc2NnXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
-
 - 预处理
   - 修改源程序,比如 `#include` 可以把相关头文件内容插入进来
 
@@ -48,11 +46,9 @@ gcc -Og -S mstore.c
 
 ### 1.4系统的硬件组成
 
-
-
 老生常谈了
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=MzAwZWEzMGMzMWRmOGRkY2RhMDNjZDc4ODVmNzYyNmVfOGtqMUFKNWdPcTB3bjVKMkEzMUlpYlJrS1lxVXNkMm5fVG9rZW46Ym94Y25MVU5ZQ3JzODhhYll1SDNqbWhodzRlXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+![image-20220406161403178](ics1.assets/image-20220406161403178.png)
 
 - 总线 -> 携带信息字节并在各个部件间传播, 传送的字节块一般是定长的,叫字( `word`), 长度是32位(4个字节)/64位(8个字节). 这就是机器字长.但机器字长应该的定义是 **一次整数运算所能处理的二进制数据的位数** ,但是一般设计的时候就把总线字节快的大小设置成这个数
 
@@ -68,9 +64,7 @@ gcc -Og -S mstore.c
 
 - 寄存器都是单个 **字长** 的. CPU里核心就是主存,寄存器和 `ALU` 
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmM0ZTM0N2Q3OWI1Mzc5OTIxNTA5ZWRjOGMyYTY1OTdfUTRYRUJoc3FYNjRaMXl6Q0k3RWlMOEZxeWZ1VmQ4czJfVG9rZW46Ym94Y25QUG9rWjQ0Y2U1eVM4MFdwN0FjQ2FlXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
-
-
+![image-20220406161446895](ics1.assets/image-20220406161446895.png)
 
 
 
@@ -82,7 +76,7 @@ gcc -Og -S mstore.c
 
 存储器层次结构:
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=Zjc5YjA3NDRmNGQzMTFjZjZmYjllNmVkNDkzY2EzMDdfZVpCVWZxU3R6QVJqaHdZcXJpUU82WUdsdjE3MFllT1hfVG9rZW46Ym94Y25DeTJYRVFRT1BoWVgweWwwNEg1aWNnXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+![image-20220406161512474](ics1.assets/image-20220406161512474.png)
 
 设计思想:上一层存储器作为第一层存储器的高速缓存.
 
@@ -124,7 +118,7 @@ OS对正在运行的程序的抽象
 
 基本思想: 把一个进程虚拟内存的内容存储在磁盘上,主存作为磁盘的高速缓存
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=MzUwMzE4MjM5M2QyNTQ4MTVlZTJkZTE0MGVlNWUxZmVfZnNwNkdVbW1LMUVzUHl3UVpWZld5RDlZZXhhMWo5VXhfVG9rZW46Ym94Y24wMzIwbmtpczR1T1dYOVFVanF4VnZlXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+![image-20220406161529299](ics1.assets/image-20220406161529299.png)
 
 - 程序代码和数据: 是按照可执行目标文件的内容初始化的
 
@@ -154,7 +148,7 @@ OS对正在运行的程序的抽象
 
 对系统的某个部分加速对整体性能的影响取决于该部分的重要程度和加速程度.
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=MzBiZWVmMzI3NzRmYmZiYTEyYWVjNDQ4Yjc0NGE5OThfaUlGWW1OZTZGTDIzbHpWVWFYdHo2Sm1wWWFoR2VzT2pfVG9rZW46Ym94Y25yeXNNOVdYbUlYR29sa01udHR3NXFkXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+![image-20220406161549424](ics1.assets/image-20220406161549424.png)
 
 所以要想显著加速整个系统必须提升全系统中相当大的部分的速度
 
@@ -166,7 +160,7 @@ OS对正在运行的程序的抽象
 
 - 多处理器系统: OS内核还是单独的,是把多个CPU集成到一个集成电路芯片上.
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=MTc2YTA5OTRlYTNkOTZiNjFjNDFiNjhjZDg1MTVlZjdfdHpmMGI4dW1iYW9TNVZSY1pQSUNoOGcxTW9KYjRReHpfVG9rZW46Ym94Y25RZWJMeXB3VVhLekpuNHZWem44N1NlXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+![image-20220406161600518](ics1.assets/image-20220406161600518.png)
 
 - 超线程: 允许一个CPU同时执行多个线程, 
   - 一般来说要实现这个需要多个CPU,这个技术则是只复制CPU中必要的部分(比如PC,其它寄存器啊), 一些部分是公用的(比如ALU).
@@ -182,4 +176,4 @@ OS对正在运行的程序的抽象
 - 抽象
   - 计算机科学中最为重要的概念之一
 
-![img](https://mf3qv90vh2.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2MxMTQ5M2U3ODEyMWRmY2ZlNWRiNzhkNGIzMDEyOTBfOXBTV1FLRDZidUk5V2NhZnRWRjkyRWtiSHNMeDM3V3lfVG9rZW46Ym94Y25tMVZ6TnRna3pURzNCYzBwOFNzbGJiXzE2NDI5NTYxNTU6MTY0Mjk1OTc1NV9WNA)
+> 文件是对IO设备的抽象, 虚拟内存是对程序存储器的抽象, 进程时对一个正在运行的程序的抽象, 虚拟机是对整个计算机的抽象

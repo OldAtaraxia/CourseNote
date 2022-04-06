@@ -66,7 +66,7 @@ Unix一切皆文件, Socket也是文件
 
 网络编程中客户端和服务器工作的核心逻辑
 
-![image-20211115192406410](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211115192406410.png)
+![image-20211115192406410](ics11.assets/image-20211115192406410.png)
 
 Socket编程常用的头文件
 
@@ -109,7 +109,7 @@ struct sockaddr {
 
 `AF`指`Address Family`, 这种值用来初始化Socket地址. 还有`PF`开头的宏, 表示`Protocol Family`, 那种纸用来初始化socket. 他们本质上是一样的, 在`<sys/socket.h>`中定义的
 
-![image-20211115193928593](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211115193928593.png)
+![image-20211115193928593](ics11.assets/image-20211115193928593.png)
 
 ### IPv4套接字格式地址
 
@@ -156,7 +156,7 @@ struct sockaddr_un {
 
 ### 比较
 
-![image-20211115195904983](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211115195904983.png)
+![image-20211115195904983](ics11.assets/image-20211115195904983.png)
 
 ## 套接字建立连接
 
@@ -282,7 +282,7 @@ int connect(int sockfd, const struct socladdr *servaddr, socklen_t addrlen);
 
 ### TCP三次握手
 
-![image-20211115223036739](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211115223036739.png)
+![image-20211115223036739](ics11.assets/image-20211115223036739.png)
 
 这里假设了所有的函数的调用都是阻塞式的, 非阻塞式的下次再说
 
@@ -317,7 +317,7 @@ os内核会在tcp连接建立后创建发送缓冲区, 之后会一直从里面�
 
 调用`write`函数是回答数据从应用程序中拷贝到os内核的发送缓冲区中, 若数据多于缓冲区则函数阻塞. 
 
-![image-20211116123218031](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211116123218031.png)
+![image-20211116123218031](ics11.assets/image-20211116123218031.png)
 
 > 发送成功近近表示**数据被拷贝到发送缓冲区中**, 不意味着连接对端已经收到所有的数据
 
@@ -367,7 +367,7 @@ UDP是无上下文的...
 
 UDP编程主要用到`recvfrom`和`sendto`
 
-![image-20211117142228034](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211117142228034.png)
+![image-20211117142228034](ics11.assets/image-20211117142228034.png)
 
 服务端创建socket之后绑定到本地端口, 调用`revcfrom`等待客户端的报文发送; 客户端创建套接字之后调用`sendto`函数网目标地址和端口发送UDP报文.
 
@@ -425,7 +425,7 @@ typedef struct addrinfo {
 } ADDRINFOA, *PADDRINFOA;
 ```
 
-![image-20211117145903326](https://gitee.com/oldataraxia/pic-bad/raw/master/img/image-20211117145903326.png)
+![image-20211117145903326](ics11.assets/image-20211117145903326.png)
 
 > `ai_addr`字段指向一个套接字地址结构, `ai_addrlen`字段是地址结构的大小, `ai_next`字段指向列表中下一个`addrinfo`结构
 
