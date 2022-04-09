@@ -30,7 +30,10 @@
 
 ## Operating System
 
+* [Introduction](os\0intro.md)
 
+* [硬件结构](os\1硬件结构.md)
+* [操作系统结构和系统调用](os\2操作系统结构和系统调用.md)
 
 ## Computer Network
 
